@@ -9,7 +9,11 @@ set -eu
 
 VERSION="v1.2.2"
 BASE_URL="https://github.com/RIO4140/niva/releases/download/${VERSION}"
-DEST_DIR="$HOME/.local/bin"
+# جذر المستودع (السكربت في tools/):
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# الثنائي يثبَّت في مجلد محلي للمشروع — لا كتابة في ~/.local/bin إطلاقا
+# (الكتابة هناك كانت تكتب فوق ثنائي مطوّر مثبّت بلا تحذير — حدث فعلا).
+DEST_DIR="$ROOT/niva-bin"
 DEST="$DEST_DIR/نيفا"
 
 case "$(uname -s)" in
@@ -57,4 +61,4 @@ mv "$TMP" "$DEST"
 trap - EXIT INT TERM
 echo "ثبّت الثنائي في: $DEST"
 "$DEST" --نسخة
-echo "التمهيد اكتمل — جرّب: نيفا src/مثال-أول.نيفا"
+echo "التمهيد اكتمل — جرّب: $DEST src/مثال-أول.نيفا"

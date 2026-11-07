@@ -2,10 +2,15 @@
 # تشغيل اختبارات NivaDB: كل برنامج اختبار .نيفا يعمل في الوضعين
 # (المترجم الافتراضي والمفسر التشخيصي)، والناجح هو الذي يطبع «ناجح».
 # لا إطار اختبار في لغة Niva بعد (انظر docs/تقييم-القدرات.md) — فالسكربت يحكم.
-# (أسماء متغيرات الشل لاتينية — معرّفات داخلية لا تظهر للمستخدم؛ وكل النصوص عربية.)
+# ترتيب البحث عن الثنائي: niva-bin/ داخل المستودع أولا (يثبّته التمهيد)،
+# ثم نيفا من PATH، ثم ~/.local/bin/نيفا.
 set -u
 
-if command -v نيفا >/dev/null 2>&1; then
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+if [ -x "$ROOT/niva-bin/نيفا" ]; then
+  NIVA="$ROOT/niva-bin/نيفا"
+elif command -v نيفا >/dev/null 2>&1; then
   NIVA="نيفا"
 elif [ -x "$HOME/.local/bin/نيفا" ]; then
   NIVA="$HOME/.local/bin/نيفا"
@@ -14,7 +19,7 @@ else
   exit 1
 fi
 
-cd "$(dirname "$0")/.."
+cd "$ROOT"
 passed=0
 failed=0
 
