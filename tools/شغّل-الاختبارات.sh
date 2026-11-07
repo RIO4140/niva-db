@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 passed=0
 failed=0
 
-for test in tests/unit/*.نيفا tests/integration/*.نيفا tests/recovery/*.نيفا; do
+for test in tests/unit/اختبار-*.نيفا tests/integration/اختبار-*.نيفا tests/recovery/اختبار-*.نيفا; do
   [ -e "$test" ] || continue
   for mode in "" "--مفسر"; do
     if [ -z "$mode" ]; then
